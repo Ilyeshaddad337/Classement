@@ -304,4 +304,3 @@ input.addEventListener('focus',()=>{
   input.style.width = '18rem';
 
 });
-
