@@ -182,14 +182,15 @@ async function insertMoy(arr) {
     var s = 0;
       s = s+ arr[j][16]*5;
       s = s+ arr[j][17]*5;
-      s = s + arr[j][18] * 3;    
+      s = s + arr[j][18] * 4;    
       s = s + arr[j][19] * 3;    
       s = s + arr[j][20] * 3;    
       s = s + arr[j][21]*2;
-      s = s + arr[j][22]*2;
+      s = s + arr[j][22]*1;
     
-    var m= s/23;
-    arr[j][15]=m;
+    var m= s/23 ;
+    console.log(m);
+    arr[j][15] = m;
   }
 }
 
