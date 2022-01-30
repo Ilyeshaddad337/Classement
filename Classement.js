@@ -41,7 +41,6 @@ async function getNotes(NameOfTheFile) {
     };
   };
 }
-//now i got the data student:[0-FamilyName,1-FirstName,2-grp,3-section,4-Algo,5-Analyse,6-Archi,7-Elec,8-Algebre,9-TEE,10-BW]
 /**
  * Sorts a HTML table.
  * 
@@ -100,13 +99,6 @@ document.querySelectorAll(".table-sortable .thA").forEach(headerCell => {
 function sortTableByColumnN (table,column,asc=true) {
   const tBody = table.tBodies[0];
   const rows = Array.from(tBody.querySelectorAll("tr"));
-
-  //var values = [];
-  /**  for (let i = 0; i < rows.length; i++) {
-    values.push(
-      parseFloat(rows[i].querySelector(`td:nth-child(${column + 1})`).textContent.trim()
-    ));
-  }*/
   for (let i = 0; i < rows.length; i++) {
     if (
       isNaN(
@@ -185,6 +177,22 @@ document.querySelectorAll(".table-sortable .thN").forEach(headerCell => {
         sortTableByColumnN(tableElement, headerIndex, !currentIsAscending);
     });
 });
+async function insertMoy(arr) {
+  for (let j = 0; j < arr.length; j++) {
+    var s = 0;
+      s = s+ arr[j][16]*5;
+      s = s+ arr[j][17]*5;
+      s = s + arr[j][18] * 3;    
+      s = s + arr[j][19] * 3;    
+      s = s + arr[j][20] * 3;    
+      s = s + arr[j][21]*2;
+      s = s + arr[j][22]*2;
+    
+    var m= s/21;
+    arr[j][15]=m;
+  }
+}
+
 //inserting the elements
 async function inserting(table) {
   await getData();
@@ -195,11 +203,15 @@ async function inserting(table) {
   await getNotes("Notes Algèbre1.csv");
   await getNotes("Notes T.E.E.csv");
   await getNotes("Notes-BW.csv");
- for (let i = 0; i < students.length; i++) {
+  //now i got the data student:[0-FamilyName,1-FirstName,2-grp,3-section,4-Algo,5-Analyse,6-Archi,7-Elec,8-Algebre,9-TEE,10-BW]
+
+  for (let i = 0; i < students.length; i++) {
     realStudents[i].push(students[i][3]);
     realStudents[i].push(students[i][2]);
     realStudents[i].push("-");
-    realStudents[i].push(students[i][0].toLowerCase()+' '+students[i][1].toLowerCase());
+    realStudents[i].push(
+      students[i][0].toLowerCase() + " " + students[i][1].toLowerCase()
+    );
     realStudents[i].push("-");
     realStudents[i].push(students[i][4]);
     realStudents[i].push(students[i][5]);
@@ -210,7 +222,27 @@ async function inserting(table) {
     realStudents[i].push(students[i][10]);
     realStudents[i].push("-");
   }
-
+  //the avrage
+  await insertMoy(realStudents);
+  for (let i = 0; i < realStudents.length; i++) {
+    if (isNaN(realStudents[i][15])) {
+      realStudents[i][15] = 0;
+    }
+  }
+  //now for rank
+  for (let i = 1; i < realStudents.length; i++) {
+    for (let j = 0; j < realStudents.length - i; j++) {
+      if (realStudents[j][15] < realStudents[j + 1][15]) {
+        var x = realStudents[j];
+        realStudents[j] = realStudents[j + 1];
+        realStudents[j + 1] = x;
+      }
+    }
+  }
+  //after sorting the array by average i get the index of every students
+  for (let i = 0; i < realStudents.length; i++) {
+    realStudents[i][13] = realStudents.indexOf(realStudents[i]) + 1;
+  }
   var tBody = table.tBodies[0];
   for (let i = 0; i < realStudents.length; i++) {
     var tr = document.createElement("tr");
