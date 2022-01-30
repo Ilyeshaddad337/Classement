@@ -189,7 +189,6 @@ async function insertMoy(arr) {
       s = s + arr[j][22]*1;
     
     var m= s/23 ;
-    console.log(m);
     arr[j][15] = m;
   }
 }
