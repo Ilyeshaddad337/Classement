@@ -188,7 +188,7 @@ async function insertMoy(arr) {
       s = s + arr[j][21]*2;
       s = s + arr[j][22]*2;
     
-    var m= s/21;
+    var m= s/23;
     arr[j][15]=m;
   }
 }
