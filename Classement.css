@@ -149,6 +149,7 @@ td {
    border-collapse: collapse;
    border-radius: 1.2em;
    border: solid 0.5px rgba(0, 0, 0, 0.4);
+   width: 100%;
    
 }
 
