@@ -248,7 +248,7 @@ input.addEventListener('input',() => {
 input.addEventListener('focus',()=>{
   select.style.display = "inline-block";
   select.style.opacity= 1;
-  input.style.width = '18rem';
+  input.style.width = '14rem';
 
 });
 
